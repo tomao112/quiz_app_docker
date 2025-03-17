@@ -17,6 +17,6 @@ class Quiz extends Model
 
     public function options()
     {
-        return $this->hasMany(Quiz::class);
+        return $this->hasMany(Option::class);
     }
 }
