@@ -34,52 +34,59 @@
     <section class="text-gray-600 body-font">
         <div class="container px-5 py-5 mx-auto">
             <div class="lg:w-2/3 w-full mx-auto overflow-auto">
-                <table class="table-auto w-full text-left whitespace-no-wrap">
-                    <thead>
-                        <tr>
-                            <th
-                                class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl rounded-bl">
-                                ID</th>
-                            <th
-                                class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
-                                クイズ問題文</th>
-                            <th
-                                class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
-                                更新日時</th>
-                            <th
-                                class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
-                                詳細</th>
-                            <th
-                                class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
-                                削除</th>
-                            <th
-                                class="w-10 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr rounded-br">
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {{-- @foreach ($categories as $category) --}}
-                        <tr>
-                            <td class="px-4 py-3">1</td>
-                            <td class="px-4 py-3">PHPとはどんな言語ですか</td>
-                            <td class="px-4 py-3">2024-01-01 10:00:00</td>
-                            <td class="px-4 py-3 text-lg text-gray-900">
-                                <button
-                                    onclick="location.href='{{ route('admin.categories.show', ['categoryId' => $category->id]) }}'"
-                                    class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
-                                    編集
-                                </button>
-                            </td>
-                            <td class="px-4 py-3 text-lg text-gray-900">
-                                <button
-                                    class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
-                                    削除
-                                </button>
-                            </td>
-                        </tr>
-                        {{-- @endforeach --}}
-                    </tbody>
-                </table>
+
+                @if (count($quizzes) <= 0)
+                    <p class="text-center text-gray-500">クイズが登録されていません</p>
+                @else
+                    <table class="table-auto w-full text-left whitespace-no-wrap">
+                        <thead>
+                            <tr>
+                                <th
+                                    class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl rounded-bl">
+                                    ID</th>
+                                <th
+                                    class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                                    クイズ問題文</th>
+                                <th
+                                    class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                                    更新日時</th>
+                                <th
+                                    class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                                    詳細</th>
+                                <th
+                                    class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                                    削除</th>
+                                <th
+                                    class="w-10 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr rounded-br">
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($quizzes as $quiz)
+                                <tr>
+                                    <td class="px-4 py-3">{{ $quiz->id }}</td>
+                                    <td class="px-4 py-3">
+                                        {{ Str::length($quiz->question) > 10 ? mb_substr($quiz->question, 0, 10) . '...' : $quiz->question }}
+                                    </td>
+                                    <td class="px-4 py-3">{{ $quiz->updated_at }}</td>
+                                    <td class="px-4 py-3 text-lg text-gray-900">
+                                        <button
+                                            onclick="location.href='{{ route('admin.categories.show', ['categoryId' => $category->id]) }}'"
+                                            class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
+                                            編集
+                                        </button>
+                                    </td>
+                                    <td class="px-4 py-3 text-lg text-gray-900">
+                                        <button
+                                            class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
+                                            削除
+                                        </button>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                @endif
             </div>
         </div>
     </section>

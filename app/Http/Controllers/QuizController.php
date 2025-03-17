@@ -6,6 +6,7 @@ use App\Http\Requests\StoreQuizRequest;
 use App\Http\Requests\UpdateQuizRequest;
 use Illuminate\Http\Request;
 use App\Models\Quiz;
+use App\Models\Option;
 
 class QuizController extends Controller
 {
@@ -35,23 +36,44 @@ class QuizController extends Controller
     public function store(StoreQuizRequest $request, int $categoryId)
     {
         //
-        // dd($request, $categoryId);
         $quiz = new Quiz();
         $quiz->category_id = $categoryId;
         $quiz->question = $request->question;
         $quiz->explanation = $request->explanation;
         $quiz->save();
 
-        $quizId = $quiz->id;
-        $option1 = new Option();
-        $option1->content = $request->content1;
-        $option1->is_correct = $request->isCorrect;
-        $option1->save();
+        $options = [
+            [
+                'quiz_id' => $quiz->id,
+                'content'=> $request->content1,
+                'is_correct' => $request->isCorrect1,
+            ],
+            [
+                'quiz_id' => $quiz->id,
+                'content'=> $request->content2,
+                'is_correct' => $request->isCorrect2,
+            ],
+            [
+                'quiz_id' => $quiz->id,
+                'content'=> $request->content3,
+                'is_correct' => $request->isCorrect3,
+            ],
+            [
+                'quiz_id' => $quiz->id,
+                'content'=> $request->content4,
+                'is_correct' => $request->isCorrect4,
+            ],
+        ];
 
+        foreach($options as $option) {
+            $newOption = new option();
+            $newOption->quiz_id = $option['quiz_id'];
+            $newOption->content = $option['content'];
+            $newOption->is_correct = $option['is_correct'];
+            $newOption->save();
+        }
 
-
-
-        // return redirect()->route('admin.categories.show', ['categoryId' => $categoryId]);
+        return redirect()->route('admin.categories.show', ['categoryId' => $categoryId]);
     }
 
     /**
