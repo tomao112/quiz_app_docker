@@ -3,11 +3,11 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\PlayController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// プレイヤー画面
+Route::get('/', [PlayController::class, 'index'])->name('top');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
