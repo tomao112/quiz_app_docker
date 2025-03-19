@@ -14,6 +14,9 @@ Route::get('categories/{categoryId}', [PlayController::class, 'categories'])->na
 Route::get('categories/{categoryId}/quizzes', [PlayController::class, 'quizzes'])->name('categories.quizzes');
 // クイズ回答画面
 Route::post('categories/{categoryId}/quizzes/answer', [PlayController::class, 'answer'])->name('categories.quizzes.answer');
+// リザルト画面
+Route::get('categories/{categoryId}/quizzes/result', [PlayController::class, 'result'])->name('categories.quizzes.result');
+
 
 
 
